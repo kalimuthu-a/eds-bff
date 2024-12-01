@@ -1,1 +1,1 @@
-# pdp-bff
+# Prodcuts Listing BFF (Backend for frontend) layer

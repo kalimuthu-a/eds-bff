@@ -37,7 +37,7 @@ app.get('/get-products', async (req, res) => {
     res.send(combinedData)
   } catch (error) {
     console.log(error);
-    res.status(400).send('Error while getting list of products');
+    res.status(400).send('Error while getting list of products..');
   }
 });
 
