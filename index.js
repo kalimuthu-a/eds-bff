@@ -1,15 +1,18 @@
-
 const express = require('express');
+const cors = require('cors'); // Import the CORS middleware
 const app = express();
 const PORT = process.env.PORT || 8081;
 
 const SELLER_API = 'https://jsonplaceholder.typicode.com/users';
 const PRODUCTS_API = 'https://fakestoreapi.com/products';
 
+// Enable CORS for all routes
+app.use(cors());
+
 app.get('/get-products', async (req, res) => {
   try {
     // Fetch data from public APIs
-    const [ sellerResponse, productsResponse ] = await Promise.all([
+    const [sellerResponse, productsResponse] = await Promise.all([
       fetch(SELLER_API),
       fetch(PRODUCTS_API),
     ]);
@@ -28,13 +31,13 @@ app.get('/get-products', async (req, res) => {
       title: product.title, // From Products API
       price: product.price, // From Products API
       description: product.description, // From Products API
-      seller: sellerData[ index ]?.name || 'Seller info not available',
-      sellerEmail: sellerData[ index ]?.email || 'Seller info not available',
+      seller: sellerData[index]?.name || 'Seller info not available',
+      sellerEmail: sellerData[index]?.email || 'Seller info not available',
     }));
 
     // Log the combined data for debugging
     // console.log('Transformed Data:', combinedData);
-    res.send(combinedData)
+    res.send(combinedData);
   } catch (error) {
     console.log(error);
     res.status(400).send('Error while getting list of products..');
